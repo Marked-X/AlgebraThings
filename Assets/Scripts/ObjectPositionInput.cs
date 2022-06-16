@@ -18,7 +18,7 @@ public class ObjectPositionInput : MonoBehaviour
     void Start()
     {
         inputField = GetComponent<InputField>();
-        inputField.text = objectPosition.transform.position.ToString();
+        inputField.text = objectPosition.transform.position.x + " " + objectPosition.transform.position.y;
     }
 
     private void OnDisable()
@@ -28,12 +28,12 @@ public class ObjectPositionInput : MonoBehaviour
 
     public void OnValueChanged()
     {
-        string[] newValues = inputField.text.Split(',');
-        objectPosition.transform.position = new Vector3(float.Parse(newValues[0]), float.Parse(newValues[1]), float.Parse(newValues[2]));
+        string[] newValues = inputField.text.Split(' ');
+        objectPosition.transform.position = new Vector3(float.Parse(newValues[0]), float.Parse(newValues[1]), 0f);
     }
 
     private void RewritePosition()
     {
-        inputField.text = objectPosition.transform.position.ToString();
+        inputField.text = objectPosition.transform.position.x + " " + objectPosition.transform.position.y;
     }
 }
