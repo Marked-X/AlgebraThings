@@ -24,21 +24,13 @@ public static class Algebra
 
     public static float ScalarProduct(Vector3 first, Vector3 second)
     {
-        Vector3 temp = new Vector3(first.x * second.x, first.y * second.y, first.z * second.z);
-        float result = temp.x + temp.y + temp.z;
+        float result = first.x * second.x + first.y * second.y + first.z * second.z;
         return result;
     }
 
     public static float VectorAngle(Vector3 first, Vector3 second)
     {
         float result = ScalarProduct(first, second) / (Length(first) * Length(second));
-        result = Mathf.Acos(result);
-        return result;
-    }
-
-    public static float VectorAngleNormalized(Vector3 first, Vector3 second)
-    {
-        float result = ScalarProduct(first, second);
         result = Mathf.Acos(result);
         return result;
     }

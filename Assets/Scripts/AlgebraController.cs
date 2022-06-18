@@ -8,7 +8,13 @@ public class AlgebraController : MonoBehaviour
     [SerializeField]
     private GameObject firstObject = null;
     [SerializeField]
+    private Text firstObjectAngle = null;
+    [SerializeField]
     private GameObject secondObject = null;
+    [SerializeField]
+    private Text secondObjectAngle = null;
+    [SerializeField]
+    private Text scalar = null;
     [SerializeField]
     private Text vectorBetween = null;
     [SerializeField]
@@ -49,16 +55,29 @@ public class AlgebraController : MonoBehaviour
         else if (selectedObject == firstObject.GetComponent<Object>().line)
         {
             firstObject.GetComponent<Object>().Rotate();
+            firstObjectAngle.text = firstObject.GetComponent<Object>().angle.ToString();
         }
         else if (selectedObject == secondObject.GetComponent<Object>().line)
         {
             secondObject.GetComponent<Object>().Rotate();
+            secondObjectAngle.text = secondObject.GetComponent<Object>().angle.ToString();
         }
         if (Input.GetMouseButtonUp(0) && selectedObject)
         {
             selectedObject = null;
-
+            CalculateScalar();
         }
+    }
+
+    private void CalculateScalar()
+    {
+        float firstAngle = firstObject.GetComponent<Object>().angle * Mathf.Deg2Rad;
+        float secondAngle = secondObject.GetComponent<Object>().angle * Mathf.Deg2Rad;
+
+        Vector3 first = new Vector3(Mathf.Cos(firstAngle), Mathf.Sin(firstAngle), 0);
+        Vector3 second = new Vector3(Mathf.Cos(secondAngle), Mathf.Sin(secondAngle), 0);
+
+        scalar.text = Algebra.ScalarProduct(first, second).ToString();
     }
 
     private void CalculateVector()
@@ -67,6 +86,4 @@ public class AlgebraController : MonoBehaviour
         vectorBetween.text = temp.x + " " + temp.y;
         vectorBetweenLength.text = Algebra.Length(temp).ToString();
     }
-
-    
 }
